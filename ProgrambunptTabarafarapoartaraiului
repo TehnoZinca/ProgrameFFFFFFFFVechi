@@ -1,0 +1,175 @@
+package org.firstinspires.ftc.teamcode;
+
+import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.qualcomm.robotcore.hardware.Servo;
+
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+
+@TeleOp(name = "ProgrambunptTabara (Blocks to Java)", group = "")
+class ProgrambunptTabara extends LinearOpMode {
+
+    private Servo Servostanga;
+    private DcMotor MotorsasiuSTANGA;
+    private DcMotor MotorsasiuDREAPTA;
+    private DcMotor MotorELICE;
+    private DcMotor MotorLIFTING;
+    private DcMotor MotorRidicareVERTICALA;
+    private DcMotor MotorRIDICARECuva;
+    private DcMotor MotorRidicareORIZONTALA;
+    //private Servo Servodreapta;
+    //private Servo Poarta1;
+    private DistanceSensor sensorRange;
+//    private DcMotor Hexdreapta;
+//    private DcMotor Hexstanga;
+
+    /**
+     * This function is executed when this Op Mode is selected from the Driver Station.
+     */
+    @Override
+    public void runOpMode() {
+        float Variabila_Concurs;
+        float sasiu_dreapta;
+        double lifting;
+        double culisanta_3;
+
+        MotorsasiuSTANGA = hardwareMap.dcMotor.get("Motor-sasiu-STANGA");
+        MotorsasiuDREAPTA = hardwareMap.dcMotor.get("Motor-sasiu-DREAPTA");
+        MotorELICE = hardwareMap.dcMotor.get("Motor-ELICE");
+        MotorLIFTING = hardwareMap.dcMotor.get("Motor-LIFTING");
+        MotorRidicareVERTICALA = hardwareMap.dcMotor.get("Motor-Ridicare-VERTICALA");
+        MotorRIDICARECuva = hardwareMap.dcMotor.get("Motor-RIDICARE-Cuva");
+        MotorRidicareORIZONTALA = hardwareMap.dcMotor.get("Motor-Ridicare-ORIZONTALA");
+        //Servodreapta = hardwareMap.servo.get("Servo-dreapta");
+        Servostanga = hardwareMap.servo.get("Servo-stanga");
+        //Poarta1 = hardwareMap.servo.get("Poarta1");
+        sensorRange = hardwareMap.get(DistanceSensor.class, "SenzorDistanta");
+//        Hexstanga = hardwareMap.dcMotor.get("Hex-stanga");
+//        Hexdreapta = hardwareMap.dcMotor.get("Hex-dreapta");
+
+        Rev2mDistanceSensor sensorTimeOfFlight = (Rev2mDistanceSensor)sensorRange;
+
+        telemetry.addData(">>", "Press start to continue");
+        telemetry.update();
+
+
+
+        waitForStart();
+        Servostanga.setDirection(Servo.Direction.REVERSE);
+        //Hexstanga.setDirection(DcMotor.Direction.REVERSE);
+        if (opModeIsActive()) {
+            while (opModeIsActive()) {
+                while (gamepad1.dpad_up) {
+                    MotorsasiuSTANGA.setPower(-1);
+                    telemetry.addData("Motor Power", MotorsasiuSTANGA.getPower());
+                    MotorsasiuDREAPTA.setPower(1);
+                    telemetry.addData("Motor Power", MotorsasiuDREAPTA.getPower());
+                }
+                while (gamepad1.dpad_down) {
+                    MotorsasiuSTANGA.setPower(1);
+                    telemetry.addData("Motor Power", MotorsasiuSTANGA.getPower());
+                    MotorsasiuDREAPTA.setPower(-1);
+                    telemetry.addData("Motor Power", MotorsasiuDREAPTA.getPower());
+                }
+                while (gamepad1.dpad_left) {
+                    MotorsasiuSTANGA.setPower(1);
+                    telemetry.addData("Motor Power", MotorsasiuSTANGA.getPower());
+                    MotorsasiuDREAPTA.setPower(1);
+                    telemetry.addData("Motor Power", MotorsasiuDREAPTA.getPower());
+                }
+                while (gamepad1.dpad_right) {
+                    MotorsasiuSTANGA.setPower(-1);
+                    telemetry.addData("Motor Power", MotorsasiuSTANGA.getPower());
+                    MotorsasiuDREAPTA.setPower(-1);
+                    telemetry.addData("Motor Power", MotorsasiuDREAPTA.getPower());
+                }
+                while (gamepad2.left_bumper) {
+                    MotorELICE.setPower(1);
+                    telemetry.addData("Motor Power", MotorELICE.getPower());
+                    MotorELICE.setPower(0);
+                }
+                while (gamepad2.right_bumper) {
+                    MotorELICE.setPower(-1);
+                    telemetry.addData("Motor Power", MotorELICE.getPower());
+                    MotorELICE.setPower(0);
+                }
+                while (gamepad2.dpad_down) {
+                    MotorLIFTING.setPower(-1);
+                    telemetry.addData("Motor Power", MotorLIFTING.getPower());
+                    MotorLIFTING.setPower(0);
+                }
+                while (gamepad2.dpad_up) {
+                    MotorLIFTING.setPower(1);
+                    telemetry.addData("Motor Power", MotorLIFTING.getPower());
+                    MotorLIFTING.setPower(0);
+                }
+                sasiu_dreapta = gamepad1.left_trigger;
+                MotorsasiuSTANGA.setPower(sasiu_dreapta);
+                telemetry.addData("Target Power", sasiu_dreapta);
+                telemetry.addData("Motor Power", MotorsasiuSTANGA.getPower());
+                sasiu_dreapta = gamepad1.right_trigger;
+                MotorsasiuDREAPTA.setPower(-sasiu_dreapta);
+                telemetry.addData("Target Power", sasiu_dreapta);
+                telemetry.addData("Motor Power", MotorsasiuDREAPTA.getPower());
+                Variabila_Concurs = gamepad1.right_stick_y;
+                MotorRidicareVERTICALA.setPower(-Variabila_Concurs);
+                telemetry.addData("Target Power", Variabila_Concurs);
+                telemetry.addData("Motor Power", MotorRidicareVERTICALA.getPower());
+                culisanta_3 = gamepad2.left_stick_y;
+                MotorRIDICARECuva.setPower(-culisanta_3);
+                telemetry.addData("Target Power", culisanta_3);
+                telemetry.addData("Motor Power", MotorRIDICARECuva.getPower());
+                lifting = -gamepad2.right_stick_y;
+                MotorRidicareORIZONTALA.setPower(-lifting);
+                telemetry.addData("Target Power", lifting);
+                telemetry.addData("Motor Power", MotorRidicareORIZONTALA.getPower());
+
+                /*if (gamepad1.y) {
+                    Servodreapta.setPosition(1);
+                } else if (gamepad1.b) {
+                    Servodreapta.setPosition(0);
+                }*/
+                if (gamepad1.y) {
+                    Servostanga.setPosition(1);
+                } else if (gamepad1.b) {
+                    Servostanga.setPosition(0);
+                }
+//                if (gamepad1.left_stick_y>0) {
+//                    Hexstanga.setPower(1);
+//                    Hexdreapta.setPower(1);
+//                    telemetry.addData("Motor Power", Hexdreapta.getPower());
+//                    telemetry.addData("Motor Power", Hexstanga.getPower());
+//                }
+//                else{
+//                    Hexstanga.setPower(0);
+//                    Hexdreapta.setPower(0);
+//                }
+                /*if (gamepad1.right_bumper) {
+                        Poarta1.setPosition(1);
+                } else if (gamepad1.left_bumper) {
+                        Poarta1.setPosition(0);
+                }*/
+                telemetry.addData("deviceName",sensorRange.getDeviceName() );
+                telemetry.addData("range", String.format("%.01f mm", sensorRange.getDistance(DistanceUnit.MM)));
+                telemetry.addData("range", String.format("%.01f cm", sensorRange.getDistance(DistanceUnit.CM)));
+                telemetry.addData("range", String.format("%.01f m", sensorRange.getDistance(DistanceUnit.METER)));
+                telemetry.addData("range", String.format("%.01f in", sensorRange.getDistance(DistanceUnit.INCH)));
+
+                // Rev2mDistanceSensor specific methods.
+                telemetry.addData("ID", String.format("%x", sensorTimeOfFlight.getModelID()));
+                telemetry.addData("did time out", Boolean.toString(sensorTimeOfFlight.didTimeoutOccur()));
+
+
+
+                  /*telemetry.addData("Motor Power", Servodreapta.getPosition());
+                  telemetry.addData("Motor Power", Servostanga.getPosition());*/
+                    //telemetry.addData("Poarta1", Poarta1.getPosition());
+                    telemetry.update();
+
+            }
+        }
+    }
+}
