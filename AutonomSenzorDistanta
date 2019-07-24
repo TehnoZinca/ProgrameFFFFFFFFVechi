@@ -64,6 +64,7 @@ public class AutonomSenzorDistanta extends LinearOpMode {
             }
             return;
 
-        }
+        }//facut de Andreea
+        
     }
 }
